@@ -1,6 +1,6 @@
 """Utilities for the PFAS catch/match application"""
 
-from src.constants import images_dict
+from src.constants import images_dict, pfoa_smiles
 
 
 def get_molecules(text: str) -> list:
@@ -13,7 +13,7 @@ def get_smiles(molecule_name: str) -> str:
     """
     Uses LLM to match to the right SMILES representation of the molecule name
     """
-    smiles_name = "O=C(O)C(F)(F)C(F)(F)C(C(F)(F)C(F)(F)C(C(F)(F)F)(F)F)(F)F"  # !!!
+    smiles_name = pfoa_smiles  # !!!
     return smiles_name
 
 
