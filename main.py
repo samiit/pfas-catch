@@ -36,7 +36,28 @@ def get_3d_render_from_smiles(smiles: str) -> FileResponse:
     """Returns a 3D renderable mol2 file from a given smiles text"""
     filename = get_filename(smiles) + "_gaff.mol2"
     file_path = Path("images") / filename
-    return FileResponse(file_path, media_type="image/mol2")
+    return FileResponse(file_path, media_type="text/mol2")
+
+
+@app.post("/text2imagefiles")
+def get_images_from_text(text: str):
+    """Returns a list of image files from the text description of the molecule"""
+    molecule_names = get_molecules(text)
+    images = []
+    mol2_files = []
+    for molecule_name in molecule_names:
+        smiles = get_smiles(molecule_name)
+        filename = get_filename(smiles) + ".jpg"
+        file_path = Path("images") / filename
+        images.append(FileResponse(file_path, media_type="image/jpg"))
+
+        mol2_filename = get_filename(smiles) + "_gaff.mol2"
+        mol2_file_path = Path("images") / mol2_filename
+        mol2_files.append(FileResponse(mol2_file_path, media_type="text/mol2"))
+    return {
+        "images_2d": images,
+        "images_3d": mol2_files,
+    }
 
 
 if __name__ == "__main__":
