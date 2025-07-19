@@ -1,0 +1,39 @@
+"""Main file rendering the APIs"""
+
+from pathlib import Path
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+
+
+from src.utils import get_filename, get_molecules, get_smiles
+
+app = FastAPI()
+
+
+@app.get("/")
+def get_pfas_match_root():
+    """Base API for PFAS to Adsorber match"""
+    return {"PFAS": "DETA-adsorber"}
+
+
+@app.post("/smiles")
+def get_smiles_from_text(text: str):
+    """Get the SMILES representation from the given text description of the molecule"""
+    molecule_names = get_molecules(text)
+    return [get_smiles(molecule_name) for molecule_name in molecule_names]
+
+
+@app.post("/render2d")
+def get_2d_render_from_smiles(smiles: str) -> FileResponse:
+    """Returns an image from a give smiles text"""
+    filename = get_filename(smiles) + ".jpg"  # Assuming the images are in PNG format
+    file_path = Path("images") / filename
+    return FileResponse(file_path, media_type="image/jpg")
+
+
+@app.post("/render3d")
+def get_3d_render_from_smiles(smiles: str) -> FileResponse:
+    """Returns a 3D renderable mol2 file from a given smiles text"""
+    filename = get_filename(smiles) + "_gaff.mol2"
+    file_path = Path("images") / filename
+    return FileResponse(file_path, media_type="image/mol2")
