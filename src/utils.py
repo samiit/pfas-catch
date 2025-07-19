@@ -1,6 +1,6 @@
 """Utilities for the PFAS catch/match application"""
 
-from src.constants import pfoa_molecule
+from src.constants import MoleculeConstants
 from src.llm import molecule_module, smiles_module  # , smiles_compare_module
 
 
@@ -17,7 +17,6 @@ def get_smiles(molecule_name: str) -> str:
     """
     Uses LLM to match to the right SMILES representation of the molecule name
     """
-    # smiles_name = pfoa_molecule.smiles  # !!!
     smiles_name_response = smiles_module(molecule_name=molecule_name)
     smiles_name = smiles_name_response.smiles
     # Compare smiles_name with existing ones
@@ -29,4 +28,6 @@ def get_smiles(molecule_name: str) -> str:
 
 def get_filename(smiles: str):
     """Get the filename from a dictionary"""
-    return pfoa_molecule.image
+    for mol in MoleculeConstants:
+        if mol.value.smiles == smiles:
+            return mol.value.image
