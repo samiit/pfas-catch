@@ -1,11 +1,11 @@
 """Utilities for the PFAS catch/match application"""
 
-from src.constants import images_dict, pfoa_smiles
+from src.constants import images_dict, pfoa_smiles, pfoa_name
 
 
 def get_molecules(text: str) -> list:
     """Uses LLM to get the molecule name out of a given text description"""
-    molecule_name = ["per-fluoro butanoic acid"]  # !!!
+    molecule_name = [pfoa_name]  # !!!
     return molecule_name
 
 
