@@ -2,6 +2,9 @@
 
 import os
 import dspy
+from dotenv import load_dotenv
+
+load_dotenv()  # This loads variables from .env into os.environ
 
 open_ai_key = os.getenv("open_ai_key")
 lm = dspy.LM("openai/gpt-4o-mini", api_key=open_ai_key)

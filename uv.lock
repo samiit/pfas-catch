@@ -957,6 +957,7 @@ dependencies = [
     { name = "dspy" },
     { name = "fastapi" },
     { name = "openai" },
+    { name = "python-dotenv" },
     { name = "uvicorn" },
 ]
 
@@ -965,6 +966,7 @@ requires-dist = [
     { name = "dspy", specifier = ">=2.6.27" },
     { name = "fastapi", specifier = ">=0.116.1" },
     { name = "openai", specifier = ">=1.97.0" },
+    { name = "python-dotenv", specifier = ">=1.1.1" },
     { name = "uvicorn", specifier = ">=0.35.0" },
 ]
 
