@@ -20,10 +20,16 @@ class MoleculeModule(dspy.Signature):
     text: str = dspy.InputField(
         description="Text description of the molecule and its requirements"
     )
-    molecule_names: list[Literal["PFBA", "PFOA", "PFBS", "PFOS"]] | None = (
-        dspy.OutputField(
-            description="Predicted molecule names. Should be one of those provided!"
-        )
+    molecule_names: list[
+        Literal[
+            pfoa_molecule.name,
+            pfba_molecule.name,
+            pfbs_molecule.name,
+            pfos_molecule.name,
+            None,
+        ]
+    ] = dspy.OutputField(
+        description="Predicted molecule names. Should be one of those provided!"
     )
 
 
@@ -36,15 +42,13 @@ class SmilesModule(dspy.Signature):
     molecule_name: str = dspy.InputField(
         description="Name of the molecule to get its SMILES representation"
     )
-    smiles: (
-        Literal[
-            pfoa_molecule.smiles,
-            pfba_molecule.smiles,
-            pfbs_molecule.smiles,
-            pfos_molecule.smiles,
-        ]
-        | None
-    ) = dspy.OutputField(description="SMILES representation of the molecule")
+    smiles: Literal[
+        pfoa_molecule.smiles,
+        pfba_molecule.smiles,
+        pfbs_molecule.smiles,
+        pfos_molecule.smiles,
+        None,
+    ] = dspy.OutputField(description="SMILES representation of the molecule")
 
 
 smiles_module = dspy.Predict(SmilesModule)
