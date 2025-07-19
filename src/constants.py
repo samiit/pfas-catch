@@ -29,3 +29,9 @@ pfos_molecule = Molecule(
     smiles="O=S(C(F)(F)C(F)(F)C(F)(F)C(C(F)(F)C(F)(F)C(F)(F)C(F)(F)F)(F)F)(O)=O",
     image="PFOS",
 )
+pfas_molecules = [
+    pfoa_molecule,
+    pfba_molecule,
+    pfbs_molecule,
+    pfos_molecule,
+]
