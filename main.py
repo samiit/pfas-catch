@@ -37,3 +37,9 @@ def get_3d_render_from_smiles(smiles: str) -> FileResponse:
     filename = get_filename(smiles) + "_gaff.mol2"
     file_path = Path("images") / filename
     return FileResponse(file_path, media_type="image/mol2")
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app)
