@@ -1,11 +1,10 @@
 """Main file rendering the APIs"""
 
 from pathlib import Path
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
 
-from audio_utils import get_text_from_whisper
 from src.utils import get_filename, get_molecules, get_smiles
 
 app = FastAPI()
