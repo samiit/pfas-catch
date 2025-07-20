@@ -14,7 +14,7 @@ load_dotenv()
 open_ai_key = os.getenv("open_ai_key")
 
 
-openai = AsyncOpenAI()
+openai = AsyncOpenAI(api_key=open_ai_key)
 
 
 async def text_to_speech(input_text: str) -> None:
