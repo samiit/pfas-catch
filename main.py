@@ -6,7 +6,13 @@ from fastapi.responses import FileResponse
 
 
 from audio_utils import text_to_speech
-from src.utils import get_filename, get_molecules, get_smiles
+from src.utils import (
+    get_best_adsorber_for_pfas,
+    get_best_adsorber_pfas_table,
+    get_filename,
+    get_molecules,
+    get_smiles,
+)
 
 app = FastAPI()
 
@@ -46,6 +52,9 @@ async def get_images_from_text(text: str):
     molecule_names = get_molecules(text)
     images = []
     mol2_files = []
+    images_adsorbers = []
+    mol2_files_adsorbers = []
+    pfas_table_dict = {}
     for molecule_name in molecule_names:
         smiles = get_smiles(molecule_name)
         filename = get_filename(smiles) + ".jpg"
@@ -56,11 +65,31 @@ async def get_images_from_text(text: str):
         mol2_file_path = Path("images") / mol2_filename
         mol2_files.append(FileResponse(mol2_file_path, media_type="text/mol2"))
 
+        if "PF" in molecule_name:
+            # if the molecule is a PFAS, get the best adsorber for it
+            adsorber = get_best_adsorber_for_pfas(molecule_name)
+            adsorber_filename = f"{adsorber}.jpg"
+            adsorber_file_path = Path("images") / adsorber_filename
+            images_adsorbers.append(
+                FileResponse(adsorber_file_path, media_type="image/jpg")
+            )
+
+            adsorber_mol2_filename = f"{adsorber}_gaff.mol2"
+            adsorber_mol2_file_path = Path("images") / adsorber_mol2_filename
+            mol2_files_adsorbers.append(
+                FileResponse(adsorber_mol2_file_path, media_type="text/mol2")
+            )
+            # Fetch the binding table for the PFAS
+            pfas_table_dict = get_best_adsorber_pfas_table(molecule_name)
+
     output_text = f"Generated images for: {', '.join(molecule_names)}"
     _ = await text_to_speech(output_text)
     return {
         "images_2d": images,
         "images_3d": mol2_files,
+        "images_adsorbers": images_adsorbers,
+        "mol2_files_adsorbers": mol2_files_adsorbers,
+        "pfas_table": pfas_table_dict,
     }
 
 

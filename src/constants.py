@@ -94,3 +94,11 @@ class MoleculeConstants(Enum):
     deta_phenol: Molecule = deta_phenol
     deta_hexane: Molecule = deta_hexane
     deta_isopentane: Molecule = deta_isopentane
+
+
+best_adsorbers = {
+    "PFBA": "DETA_cyclohexane",
+    "PFBS": "DETA_phenol",
+    "PFOA": "DETA_hexane",
+    "PFOS": "DETA_hexane",
+}
