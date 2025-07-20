@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
 
-from audio_utils import text_to_speech
+from src.audio_utils import text_to_speech
 from src.utils import (
     get_best_adsorber_for_pfas,
     get_best_adsorber_pfas_table,
