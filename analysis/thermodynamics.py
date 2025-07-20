@@ -69,7 +69,7 @@ def calculate_pmf_from_rdf(rdf_file, temperature=298.15, output_file="pmf.dat"):
     ax1.axhline(y=1, color="k", linestyle="--", alpha=0.5)
     ax1.set_xlabel("Distance (nm)")
     ax1.set_ylabel("g(r)")
-    ax1.set_title("Radial Distribution Function: PFBA - DETA-cyclohexane")
+    ax1.set_title(f"Radial Distribution Function: {rdf_file.stem}")
     ax1.grid(True, alpha=0.3)
     ax1.set_xlim(0, min(3.0, r[-1]))
 
