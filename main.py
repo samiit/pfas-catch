@@ -63,10 +63,11 @@ async def get_images_from_text(text: str):
         mol2_filename = get_filename(smiles) + "_gaff.mol2"
         mol2_file_path = Path("images") / mol2_filename
         mol2_files.append(FileResponse(mol2_file_path, media_type="text/mol2"))
-
-        if "PF" in molecule_name:
+        if "per-fluoro" in molecule_name:
             # if the molecule is a PFAS, get the best adsorber for it
             adsorber = get_best_adsorber_for_pfas(molecule_name)
+            if not adsorber:
+                continue
             adsorber_filename = f"{adsorber}.jpg"
             adsorber_file_path = Path("images") / adsorber_filename
             images_adsorbers.append(

@@ -46,7 +46,7 @@ def get_best_adsorber_for_pfas(pfas_name: str) -> str:
 
 def get_best_adsorber_pfas_table(pfas_name: str) -> dict:
     """Get the sorted table of best adsorbers for a given PFAS"""
-    data_file = Path("data/best_pfas_deta_binding.csv")
+    data_file = Path("data/pfas_deta_binding.csv")
     df = pd.read_csv(data_file)
     # Filter the DataFrame for the given PFAS name
     filtered = df[df["PFAS"] == pfas_name]

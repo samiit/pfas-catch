@@ -22,7 +22,7 @@ pfbs_molecule = Molecule(
     image="PFBS",
 )
 pfoa_molecule = Molecule(
-    name="per-fluoro butanoic acid",
+    name="per-fluoro octanoic acid",
     smiles="O=C(O)C(F)(F)C(F)(F)C(C(F)(F)C(F)(F)C(C(F)(F)F)(F)F)(F)F",
     image="PFOA",
 )
@@ -97,8 +97,8 @@ class MoleculeConstants(Enum):
 
 
 best_adsorbers = {
-    "PFBA": "DETA_cyclohexane",
-    "PFBS": "DETA_phenol",
-    "PFOA": "DETA_hexane",
-    "PFOS": "DETA_hexane",
+    "per-fluoro butanoic acid": "DETA_cyclohexane",
+    "per-fluoro butane sulfonic acid": "DETA_phenol",
+    "per-fluoro octanoic acid": "DETA_hexane",
+    "per-fluoro octane sulfonic acid": "DETA_hexane",
 }
