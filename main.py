@@ -1,10 +1,11 @@
 """Main file rendering the APIs"""
 
 from pathlib import Path
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.responses import FileResponse
 
 
+from audio_utils import get_text_from_whisper
 from src.utils import get_filename, get_molecules, get_smiles
 
 app = FastAPI()
@@ -17,14 +18,14 @@ def get_pfas_match_root():
 
 
 @app.post("/smiles")
-def get_smiles_from_text(text: str):
+async def get_smiles_from_text(text: str):
     """Get the SMILES representation from the given text description of the molecule"""
     molecule_names = get_molecules(text)
     return [get_smiles(molecule_name) for molecule_name in molecule_names]
 
 
 @app.post("/render2d")
-def get_2d_render_from_smiles(smiles: str) -> FileResponse:
+async def get_2d_render_from_smiles(smiles: str) -> FileResponse:
     """Returns an image from a give smiles text"""
     filename = get_filename(smiles) + ".jpg"  # Assuming the images are in PNG format
     file_path = Path("images") / filename
@@ -32,7 +33,7 @@ def get_2d_render_from_smiles(smiles: str) -> FileResponse:
 
 
 @app.post("/render3d")
-def get_3d_render_from_smiles(smiles: str) -> FileResponse:
+async def get_3d_render_from_smiles(smiles: str) -> FileResponse:
     """Returns a 3D renderable mol2 file from a given smiles text"""
     filename = get_filename(smiles) + "_gaff.mol2"
     file_path = Path("images") / filename
@@ -40,7 +41,7 @@ def get_3d_render_from_smiles(smiles: str) -> FileResponse:
 
 
 @app.post("/text2imagefiles")
-def get_images_from_text(text: str):
+async def get_images_from_text(text: str):
     """Returns a list of image files from the text description of the molecule"""
     molecule_names = get_molecules(text)
     images = []
@@ -58,6 +59,20 @@ def get_images_from_text(text: str):
         "images_2d": images,
         "images_3d": mol2_files,
     }
+
+
+@app.websocket("/ws/transcribe")
+async def websocket_transcribe(websocket: WebSocket):
+    await websocket.accept()
+    audio_buffer = b""
+    while True:
+        data = await websocket.receive_bytes()
+        audio_buffer += data
+        # Optionally, process in chunks for partial transcription
+        if len(audio_buffer) > 16000:  # After 1 second of audio
+            response_text = get_text_from_whisper(audio_buffer)
+            await websocket.send_text(response_text)
+            # audio_buffer = b""  # Reset buffer or keep for continuous context
 
 
 if __name__ == "__main__":
