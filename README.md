@@ -5,6 +5,9 @@
 
 An intelligent voice-controlled agent that transforms natural language descriptions into molecular discovery and visualization through AI-powered semantic search, chemical informatics, and autonomous task execution.
 
+Here is the video demonstration of the submission: [Download Demo Video](https://drive.google.com/file/d/1q7I1suQlWol1CHcKXmZfSbBtwTPGl6Eh/view?usp=drive_link)
+
+
 ## 🎯 Project Vision
 
 PFAS-Catch revolutionizes molecular discovery by enabling voice-driven conversations about chemical compounds. Simply speak your requirements, and our autonomous agent will search, identify, analyze, and visualize candidate molecules that match your needs - completing the entire workflow from voice input to molecular visualization.
