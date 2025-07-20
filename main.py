@@ -5,7 +5,6 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
 
-from src.audio_utils import text_to_speech
 from src.utils import (
     get_best_adsorber_for_pfas,
     get_best_adsorber_pfas_table,
@@ -82,8 +81,8 @@ async def get_images_from_text(text: str):
             # Fetch the binding table for the PFAS
             pfas_table_dict = get_best_adsorber_pfas_table(molecule_name)
 
-    output_text = f"Generated images for: {', '.join(molecule_names)}"
-    _ = await text_to_speech(output_text)
+    # output_text = f"Generated images for: {', '.join(molecule_names)}"
+    # _ = await text_to_speech(output_text)
     return {
         "images_2d": images,
         "images_3d": mol2_files,
