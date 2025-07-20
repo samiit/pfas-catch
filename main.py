@@ -6,7 +6,6 @@ from fastapi.responses import FileResponse
 
 
 from src.utils import (
-    get_best_adsorber_for_pfas,
     get_best_adsorber_pfas_table,
     get_filename,
     get_molecules,
@@ -64,29 +63,17 @@ async def get_images_from_text(text: str):
         mol2_file_path = Path("images") / mol2_filename
         mol2_files.append(FileResponse(mol2_file_path, media_type="text/mol2"))
         if "per-fluoro" in molecule_name:
-            # if the molecule is a PFAS, get the best adsorber for it
-            adsorber = get_best_adsorber_for_pfas(molecule_name)
-            if not adsorber:
-                continue
-            adsorber_filename = f"{adsorber}.jpg"
-            adsorber_file_path = Path("images") / adsorber_filename
-            images_adsorbers.append(
-                FileResponse(adsorber_file_path, media_type="image/jpg")
-            )
-
-            adsorber_mol2_filename = f"{adsorber}_gaff.mol2"
-            adsorber_mol2_file_path = Path("images") / adsorber_mol2_filename
-            mol2_files_adsorbers.append(
-                FileResponse(adsorber_mol2_file_path, media_type="text/mol2")
-            )
+            # if the molecule is a PFAS
             # Fetch the binding table for the PFAS
             pfas_table_dict = get_best_adsorber_pfas_table(molecule_name)
+            adsorber_name = pfas_table_dict[0]
 
     # output_text = f"Generated images for: {', '.join(molecule_names)}"
     # _ = await text_to_speech(output_text)
     return {
         "images_2d": images,
         "images_3d": mol2_files,
+        "best_adsorber": adsorber_name,
         "images_adsorbers": images_adsorbers,
         "mol2_files_adsorbers": mol2_files_adsorbers,
         "pfas_table": pfas_table_dict,

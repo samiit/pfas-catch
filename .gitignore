@@ -64,6 +64,7 @@ models/
 *.joblib
 *.dat
 *.xvg
+*analysis.png
 
 # Jupyter
 .ipynb_checkpoints/
