@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
 
+from audio_utils import text_to_speech
 from src.utils import get_filename, get_molecules, get_smiles
 
 app = FastAPI()
@@ -54,6 +55,9 @@ async def get_images_from_text(text: str):
         mol2_filename = get_filename(smiles) + "_gaff.mol2"
         mol2_file_path = Path("images") / mol2_filename
         mol2_files.append(FileResponse(mol2_file_path, media_type="text/mol2"))
+
+    output_text = f"Generated images for: {', '.join(molecule_names)}"
+    _ = await text_to_speech(output_text)
     return {
         "images_2d": images,
         "images_3d": mol2_files,
