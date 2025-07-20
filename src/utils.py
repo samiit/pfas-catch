@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 from src.constants import MoleculeConstants, best_adsorbers
-from src.llm import molecule_module, smiles_module, geography_module
+from src.llm import molecule_module, smiles_module
 
 
 def get_molecules(text: str) -> list:
