@@ -61,20 +61,6 @@ async def get_images_from_text(text: str):
     }
 
 
-@app.websocket("/ws/transcribe")
-async def websocket_transcribe(websocket: WebSocket):
-    await websocket.accept()
-    audio_buffer = b""
-    while True:
-        data = await websocket.receive_bytes()
-        audio_buffer += data
-        # Optionally, process in chunks for partial transcription
-        if len(audio_buffer) > 16000:  # After 1 second of audio
-            response_text = get_text_from_whisper(audio_buffer)
-            await websocket.send_text(response_text)
-            # audio_buffer = b""  # Reset buffer or keep for continuous context
-
-
 if __name__ == "__main__":
     import uvicorn
 
