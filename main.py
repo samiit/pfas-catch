@@ -66,7 +66,7 @@ async def get_images_from_text(text: str):
             # if the molecule is a PFAS
             # Fetch the binding table for the PFAS
             pfas_table_dict = get_best_adsorber_pfas_table(molecule_name)
-            adsorber_name = pfas_table_dict[0]
+            adsorber_name = "DETA_" + pfas_table_dict[0].get("DETA_variant")
 
     # output_text = f"Generated images for: {', '.join(molecule_names)}"
     # _ = await text_to_speech(output_text)
