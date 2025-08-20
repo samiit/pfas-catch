@@ -5,7 +5,7 @@
 
 An intelligent agent that transforms natural language descriptions into molecular discovery and visualization based on Molecular Dynamics performed on various adsorbers for PFAS removal.
 
-Here is the video demonstration of the submission: [Download Demo Video](https://drive.google.com/file/d/1q7I1suQlWol1CHcKXmZfSbBtwTPGl6Eh/view?usp=drive_link)
+Here is the video demonstration of the submission: [![Watch the video](images/video_thumbnail.png)](https://drive.google.com/file/d/1q7I1suQlWol1CHcKXmZfSbBtwTPGl6Eh/view?usp=drive_link)
 
 ## 🚀 Features
 
