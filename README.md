@@ -1,6 +1,6 @@
 # PFAS-Catch 🧪
 
-**{Tech: Berlin } AI Hackathon Berlin 2025 - General Track**
+**[{Tech: Europe } AI Hackathon Berlin 2025](https://techeurope.notion.site/berlin-hackathon-manual) - General Track**
 *"AI-chemist" - AI for Molecular Discovery*
 
 An intelligent agent that transforms natural language descriptions into molecular discovery and visualization based on Molecular Dynamics performed on various adsorbers for PFAS removal.
