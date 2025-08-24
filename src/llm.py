@@ -9,7 +9,7 @@ from src.constants import MoleculeConstants
 
 load_dotenv()  # This loads variables from .env into os.environ
 
-open_ai_key = os.getenv("open_ai_key")
+open_ai_key = os.getenv("OPENAI_API_KEY")
 lm = dspy.LM("openai/gpt-4o", api_key=open_ai_key, cache=False)
 dspy.configure(lm=lm, temperature=0.1)
 
